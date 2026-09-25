@@ -24,7 +24,6 @@ function drawWheel() {
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(angle + Math.PI / 2);
-
   if (!s.length) {
     ctx.beginPath();
     ctx.arc(0, 0, r, 0, Math.PI * 2);
@@ -33,7 +32,6 @@ function drawWheel() {
     ctx.restore();
     return;
   }
-
   const arc = Math.PI * 2 / s.length;
   s.forEach((item, i) => {
     const a0 = i * arc - Math.PI / 2;
@@ -195,5 +193,8 @@ document.getElementById("close").onclick = () => {
 };
 canvas.addEventListener("click", spin);
 hub.style.pointerEvents = "none";
-drawWheel();
-updateMeta();
+function boot() { drawWheel(); updateMeta(); }
+boot();
+requestAnimationFrame(boot);
+window.addEventListener("load", boot);
+window.addEventListener("resize", boot);
